@@ -1,36 +1,33 @@
 # Market-Making Simulator
 
-A simplified market-making simulation comparing a naive strategy against an inventory-aware improved strategy.
+A simplified market-making simulation comparing a basic strategy against an inventory-aware improved strategy.
 
 ## Overview
-Brief 2-3 sentence summary: what the project simulates, what question it's trying to answer 
-(e.g., "how much does inventory-aware risk management improve a market maker's P&L and 
-drawdown compared to a naive fixed-spread strategy?").
+This project investigates how much an inventory-aware risk management method can improve a market maker's P&L and drawdown compared to a basic fixed-spread strategy.
 
 ## How it works
 - **Price model**: geometric random walk representing the asset's true value
 - **Order flow**: simulated buy/sell orders generated with noise around true value
 - **Naive market maker**: fixed spread, no inventory awareness
-- **Improved market maker**: spread widens with inventory, [+ skewing if you added it]
-- **Fair value estimation**: EWMA of executed trade prices
+- **Improved market maker**: spread widens with inventory, uses an exponentially weighted moving average for estimating asset value
+
 
 ## Results
-- P&L comparison (naive vs. improved) — include a plot
-- Inventory over time — include a plot
-- Drawdown comparison
-- 2-3 sentences on what the results show
+After running the simulation 200 times:
+- Basic (fixed spread): P&L mean = -1191.06
+- Improved (dynamic spread + EWMA): P&L = -295.54
+
+The basic strategy accumulated much larger inventory swings, leaving it exposed
+during drift in the true value; the improved strategy's spread widening kept
+inventory closer to zero throughout. <br>
+It seems slightly counterintuitive that even the improved method yields a negative mean P&L. The cause of this is likely to be because of the estimated asset value never quite being up to date with the true value. The improved method has a better P&L because the estimation method weighs the recent trades more heavily making it closer to the true value than the basic method but still isn't completely accurate. See notebook for full plots.
 
 ## What I'd improve with more time
 - Order flow imbalance reaction
 - Kalman filter for fair value
 - Full resting limit order book instead of market orders
 - wider spread until fair value estimate settles
-- skewing
+- Skewing to control inventory aswell as widening the spread
 
-## Usage
-\`\`\`bash
-python simulate.py
-\`\`\`
 
-## Files
-- `simulator.py` — order book and matching logic
+
