@@ -14,8 +14,8 @@ This project investigates how much an inventory-aware risk management method can
 
 ## Results
 After running the simulation 200 times:
-- Basic (fixed spread): P&L mean = -1191.06
-- Improved (dynamic spread + EWMA): P&L = -295.54
+- Basic (fixed spread): P&L mean = -1177.69
+- Improved (dynamic spread + EWMA): P&L = -266.84
 
 The basic strategy accumulated much larger inventory swings, leaving it exposed
 during drift in the true value; the improved strategy's spread widening kept
@@ -26,7 +26,7 @@ It seems slightly counterintuitive that even the improved method yields a negati
 - Order flow imbalance reaction
 - Kalman filter for fair value
 - Full resting limit order book instead of market orders
-- wider spread until fair value estimate settles
+- Wider spread until fair value estimate settles
 - Skewing to control inventory aswell as widening the spread
 
 
